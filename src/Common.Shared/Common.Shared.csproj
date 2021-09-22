@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="OrchardCore.Abstractions" Version="1.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.9" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.9" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.9" />
+		<PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="5.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Common\Common.csproj" />
+		<ProjectReference Include="..\Common.Fx\Common.Fx.csproj" />
+	</ItemGroup>
+
+</Project>

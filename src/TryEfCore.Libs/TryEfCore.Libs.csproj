@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<DocumentationFile>TryEfCore.Libs.xml</DocumentationFile>
+		<NoWarn>1701;1702;1591</NoWarn>
+		<OutputPath></OutputPath>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.9" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.9" />
+		<PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="5.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Common.Fx\Common.Fx.csproj" />
+	  <ProjectReference Include="..\Common.Shared\Common.Shared.csproj" />
+	  <ProjectReference Include="..\Common\Common.csproj" />
+	</ItemGroup>
+
+</Project>

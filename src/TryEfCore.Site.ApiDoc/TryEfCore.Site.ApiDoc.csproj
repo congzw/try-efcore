@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Common\Common.csproj" />
+		<ProjectReference Include="..\Common.Fx\Common.Fx.csproj" />
+		<ProjectReference Include="..\Common.Shared\Common.Shared.csproj" />
+	</ItemGroup>
+
+</Project>
