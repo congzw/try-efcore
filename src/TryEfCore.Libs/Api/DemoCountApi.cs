@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Common;
+﻿using Common;
 using Microsoft.AspNetCore.Mvc;
 using TryEfCore.Libs.Core.Demos;
 
@@ -27,16 +25,17 @@ namespace TryEfCore.Libs.Api
         {
             return _demoService.GetOrgCourseCounts(args);
         }
-
-        /// <summary>
-        /// method:[0,1]
-        /// </summary>
-        /// <param name="args"></param>
-        /// <returns></returns>
+        
         [HttpGet]
         public MessageResult GetUserCourseCounts([FromQuery] GetUserCourseCountsArgs args)
         {
             return _demoService.GetUserCourseCounts(args);
+        }
+        
+        [HttpGet]
+        public MessageResult GetOrgComplexCounts([FromQuery] GetOrgComplexCountsArgs args)
+        {
+            return _demoService.GetOrgComplexCounts(args);
         }
     }
 }

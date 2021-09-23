@@ -2,31 +2,65 @@
 
 ## 演示使用数据
 
+- org
+- user
+- course
+
 ### orgs
 
-	org-1
-		org-1.1
-	org-2
-		org-2.1
+	- org-1
+		- user-super
+			- course-a
+	- org-1.1
+		- user-001
+		- user-002
+		- user-003
+	- org-2
+		- user-admin
+			- course-b
+			- course-001
+			- course-002
+			- ...
+			- course-012
+	- org-2.1
+		- 
 
 ### users
 
 	user-super	-> org1
 	user-admin	-> org2
-	user-no-org	-> null
-	user-no-org2	-> org-no-exist
 	user-001	-> org1.1
 	user-002	-> org1.1
 	user-003	-> org1.1
+	user-no-org	-> null
+	user-no-org2-> org-no-exist
 
 
 ### courses
 
-	course-a		-> user-super
-	course-b		-> user-admin
-	course-001~012	-> user-admin
-	course-013~015	-> user-no-org
+	course-a		-> user-super		->		org1
+	course-b		-> user-admin		->		org2
+	course-001~012	-> user-admin		->		org1
+	course-013~015	-> user-no-org		->		NULL
 
+### demo data
+
+	- org-1
+		- user-super
+			- course-a
+	- org-1.1
+		- user-001
+		- user-002
+		- user-003
+	- org-2
+		- user-admin
+			- course-b
+			- course-001
+			- course-002
+			- ...
+			- course-012
+	- org-2.1
+		- 
 
 ### org's user count
 

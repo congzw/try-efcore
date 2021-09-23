@@ -4,13 +4,6 @@
         <name>TryEfCore.Libs</name>
     </assembly>
     <members>
-        <member name="M:TryEfCore.Libs.Api.DemoCountApi.GetUserCourseCounts(TryEfCore.Libs.Core.Demos.GetUserCourseCountsArgs)">
-            <summary>
-            method:[0,1]
-            </summary>
-            <param name="args"></param>
-            <returns></returns>
-        </member>
         <member name="P:TryEfCore.Libs.Core.Demos.GetOrgCourseCountsArgs.Method">
             <summary>
             0,1,2

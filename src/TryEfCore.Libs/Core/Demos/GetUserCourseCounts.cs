@@ -35,12 +35,12 @@ namespace TryEfCore.Libs.Core.Demos
             var messageResult = new MessageResult();
             if (args.Method == 1)
             {
-                messageResult.Message = "期望结果[Admin:13, LuRenJia:3, Super:1] => 错误示例";
+                messageResult.Message = "错误示例1";
                 messageResult.Data = GetUserCourseCounts1(_dbContext, args);
                 return messageResult;
             }
 
-            messageResult.Message = "期望结果[Admin:13, LuRenJia:3, Super:1] => 正确示例";
+            messageResult.Message = "正确示例0";
             messageResult.Success = true;
             messageResult.Data = GetUserCourseCounts0(_dbContext, args);
             return messageResult;

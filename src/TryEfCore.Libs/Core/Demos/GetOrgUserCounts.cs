@@ -30,20 +30,24 @@ namespace TryEfCore.Libs.Core.Demos
         public MessageResult GetOrgUserCounts(GetOrgUserCountsArgs args)
         {
             var messageResult = new MessageResult();
-            messageResult.Message = "错误示例";
+            messageResult.Message = "错误示例" + args.Method;
 
             if (args.Method == 1)
             {
+                messageResult.Message = "正确示例1";
+                messageResult.Success = true;
                 messageResult.Data = GetOrgUserCounts1(_dbContext, args);
                 return messageResult;
             }
 
             if (args.Method == 2)
             {
+                messageResult.Message = "正确示例2";
+                messageResult.Success = true;
                 messageResult.Data = GetOrgUserCounts2(_dbContext, args);
                 return messageResult;
             }
-            
+
             if (args.Method == 3)
             {
                 messageResult.Data = GetOrgUserCounts3(_dbContext, args);
@@ -56,7 +60,7 @@ namespace TryEfCore.Libs.Core.Demos
                 return messageResult;
             }
 
-            messageResult.Message = "正确示例";
+            messageResult.Message = "正确示例0";
             messageResult.Success = true;
             messageResult.Data = GetOrgUserCounts0(_dbContext, args);
             return messageResult;
@@ -79,35 +83,37 @@ namespace TryEfCore.Libs.Core.Demos
                     UserCount = x.Sum(g => g.uCount)
                 });
 
-            return groupQ.OrderByDescending(x => x.UserCount).ThenBy(x => x.OrgId); ;
+            return groupQ.OrderByDescending(x => x.UserCount).ThenBy(x => x.OrgId);
         }
 
         private static IEnumerable<OrgUserCount> GetOrgUserCounts1(TestDbContext dbContext, GetOrgUserCountsArgs args)
         {
+            //org -> user
             var query =
-                from u in dbContext.Users
-                from o in dbContext.Orgs.Where(o => o.Id == u.OrgId).DefaultIfEmpty()
-                select new { u, o };
+                from o in dbContext.Orgs
+                join u in dbContext.Users on o.Id equals u.OrgId into temp
+                from u in temp.DefaultIfEmpty()
+                select new { o, uCount = u == null ? 0 : 1 };
 
-            return query
+            var groupQ = query
                 .GroupBy(x => new { OrgId = x.o.Id, OrgName = x.o.Name })
                 .Select(x => new OrgUserCount()
                 {
                     OrgId = x.Key.OrgId,
                     OrgName = x.Key.OrgName,
-                    UserCount = x.Count()
-                })
-                .OrderByDescending(x => x.UserCount)
-                .ThenBy(x => x.OrgId);
-        }
+                    UserCount = x.Sum(g => g.uCount)
+                });
 
+            return groupQ.OrderByDescending(x => x.UserCount).ThenBy(x => x.OrgId); ;
+        }
         
         private static IEnumerable<OrgUserCount> GetOrgUserCounts2(TestDbContext dbContext, GetOrgUserCountsArgs args)
         {
+            //org -> user
             var query =
-                from u in dbContext.Users
-                from o in dbContext.Orgs.Where(o => o.Id == u.OrgId).DefaultIfEmpty()
-                select new { u, o };
+                from o in dbContext.Orgs
+                from u in dbContext.Users.Where(u => o.Id == u.OrgId).DefaultIfEmpty()
+                select new { o, u };
 
             return query
                 .GroupBy(x => new { OrgId = x.o.Id, OrgName = x.o.Name })
@@ -115,30 +121,30 @@ namespace TryEfCore.Libs.Core.Demos
                 {
                     OrgId = x.Key.OrgId,
                     OrgName = x.Key.OrgName,
-                    UserCount = x.Sum(y=>y.o!=null ? 1:0)
+                    UserCount = x.Sum(y => y.u == null ? 0 : 1)
                 })
                 .OrderByDescending(x => x.UserCount)
                 .ThenBy(x => x.OrgId);
         }
 
-        
         private static IEnumerable<OrgUserCount> GetOrgUserCounts3(TestDbContext dbContext, GetOrgUserCountsArgs args)
         {
+            //user -> org
             var query =
                 from u in dbContext.Users
                 from o in dbContext.Orgs.Where(o => o.Id == u.OrgId).DefaultIfEmpty()
-                select new { u, o };
+                select new { o, uCount = u == null ? 0 : 1 };
 
-            return query
+            var groupQ = query
                 .GroupBy(x => new { OrgId = x.o.Id, OrgName = x.o.Name })
                 .Select(x => new OrgUserCount()
                 {
                     OrgId = x.Key.OrgId,
                     OrgName = x.Key.OrgName,
-                    UserCount = x.Count()
-                })
-                .OrderByDescending(x => x.UserCount)
-                .ThenBy(x => x.OrgId); ;
+                    UserCount = x.Sum(g => g.uCount)
+                });
+
+            return groupQ.OrderByDescending(x => x.UserCount).ThenBy(x => x.OrgId); ;
         }
 
         private static IEnumerable<OrgUserCount> GetOrgUserCounts4(TestDbContext dbContext, GetOrgUserCountsArgs args)
@@ -159,7 +165,6 @@ namespace TryEfCore.Libs.Core.Demos
                 .OrderByDescending(x => x.UserCount)
                 .ThenBy(x => x.OrgId); ;
         }
-
     }
 
 }
